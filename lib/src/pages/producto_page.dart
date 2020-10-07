@@ -123,14 +123,16 @@ class _ProductoPageState extends State<ProductoPage> {
 
   }
 
-  void _submit() {
+  void _submit() async {
 
     if (!formKey.currentState.validate()) return;
     formKey.currentState.save();
 
-    setState(() {
-      _guardando = true;
-    });  
+    setState(() {_guardando = true;});  
+
+    if ( _foto != null ) {
+      producto.fotoUrl = await productoProvider.subirImagen(_foto);
+    }
 
     if ( producto.id == null ) {
       productoProvider.crearProducto(producto);
@@ -169,7 +171,12 @@ class _ProductoPageState extends State<ProductoPage> {
 
     if (producto.fotoUrl != null) {
  
-      return Container();
+      return FadeInImage(
+        image: NetworkImage(producto.fotoUrl),
+        placeholder: AssetImage('assets/jar-loading.gif'),
+        height: 300.0,
+        fit: BoxFit.contain,
+      );
  
     } else {
  
