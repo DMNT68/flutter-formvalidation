@@ -7,11 +7,10 @@ import 'package:formvalidation/src/pages/registro_page.dart';
 import 'package:formvalidation/src/preferencias_usuario/preferencias_usuario.dart';
  
 void main() async {
-  
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
   runApp(MyApp());
-
 } 
  
 class MyApp extends StatelessWidget {
